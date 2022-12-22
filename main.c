@@ -6,11 +6,12 @@
 /*   By: cprojean <cprojean@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 15:49:18 by cprojean          #+#    #+#             */
-/*   Updated: 2022/12/19 16:44:25 by cprojean         ###   ########.fr       */
+/*   Updated: 2022/12/22 18:06:32 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract-ol.h"
+#include <stdio.h>
 
 void	ft_putchar(char c)
 {
@@ -23,7 +24,21 @@ int	deal_key(int key, void *params)
 	return (0);
 }
 
-float	fractal(double pt_x, double pt_y)
+// long	iteration_nb_julia(t_complex z, t_complex *c)
+// {
+// 	long	i;
+// 	double	zrtemp;
+
+// 	i = 0;
+// 	while ((z.r * z.r) + (z.i * z.i) <= 4 && i < c->max)
+// 	{
+// 		zrtemp = z.r;
+// 		z.r = (z.r * z.r) - (z.i * z.i) - c->r;
+// 		z.i = (2 * zrtemp * z.i) - c->i;
+// 		i++;
+// 	}
+
+float	fractal(t_pix position)
 {
 	int		max_iter;
 	int		runner;
@@ -34,17 +49,17 @@ float	fractal(double pt_x, double pt_y)
 	x = 0;
 	y = 0;
 	runner = 0;
-	max_iter = 10;
-	while(runner < max_iter)
+	max_iter = 30;
+	while(runner < max_iter && (x * x) + (y * y) <= 4)
 	{
-		Zn = ((x * x) - (y * y) + pt_x);
-		y = (2 * x * y) + pt_y;
-		x = Zn;
-		if ((x * x) + (y * y) > 4)
-			return (runner / max_iter);
+		Zn = (x);
+		x = (x * x) - (y * y);
+		y = (2 * Zn * position.imaginary);
+		printf("x = %f\ny = %f\n", x, y);
+		printf("runner = %d\n\n", runner);
 		runner++;
 	}
-	return (1);
+	return (runner);
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -55,36 +70,37 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int main()
+int	main(void)
 {
+	void	*mlx;
+	void	*mlx_win;
 	t_data	img;
-	//void	*img.addr;
-	void	*window;
-	double	x;
-	double	y;
+	t_pix	position;
+	int	nb;
+	int	max_iter = 30;
 
-	img.addr = mlx_init();
-	img.img = mlx_new_image(img.addr, WINWIDTH, WINHEIGTH);
-	//img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	window = mlx_new_window(img.addr, WINWIDTH, WINHEIGTH, "Window");
-	x = 0;
-	y = 0;
-	//fractal(pixel.x, pixel.y);
-	while (x != WINHEIGTH)
+	position.reel = 0;
+	position.imaginary = 0;
+	mlx = mlx_init();
+	mlx_win = mlx_new_window(mlx, WINWIDTH, WINHEIGTH, "Hello world!");
+	img.img = mlx_new_image(mlx, WINWIDTH, WINHEIGTH);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
+								&img.endian);
+	while (position.imaginary < WINHEIGTH)
 	{
-		while (y != WINWIDTH)
+		position.reel = 0;
+		while (position.reel < WINWIDTH)
 		{
-			if (fractal(x/480, y/270) == 1)
-				my_mlx_pixel_put(&img, x, y, 0xAAAAAA);
+			nb = fractal(position);
+			//printf("nb = %d\n", nb);
+			if (nb == max_iter)
+				my_mlx_pixel_put(&img, position.reel, position.imaginary, 0x101010);
 			else
-				my_mlx_pixel_put(&img, x, y, 0xFFFFFF);
-			y++;
+				my_mlx_pixel_put(&img, position.reel, position.imaginary, 0x100010);
+			position.reel++;
 		}
-		x++;
+		position.imaginary++;
 	}
-	//mlx_put_image_to_window(img.addr, window, );
-	//mlx_pixel_put(img.addr, window, 250, 250, 0xFFFFFF);
-	mlx_put_image_to_window(img.addr, window, img.img, WINWIDTH/2, WINHEIGTH/2);
-	mlx_key_hook(window, deal_key, (void *)0);
-	mlx_loop(img.addr);
+	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+	mlx_loop(mlx);
 }

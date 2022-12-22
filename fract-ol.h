@@ -16,4 +16,9 @@ typedef struct	s_data {
 	int		endian;
 }				t_data;
 
+typedef struct	s_pos {
+	double	reel;
+	double	imaginary;
+}				t_pix;
+
 #endif
