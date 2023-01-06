@@ -6,7 +6,7 @@
 #    By: cprojean <cprojean@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:36:52 by cprojean          #+#    #+#              #
-#    Updated: 2022/12/18 12:42:40 by cprojean         ###   ########.fr        #
+#    Updated: 2023/01/04 15:15:33 by cprojean         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = fract-ol
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -O3
 
 MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
 
@@ -26,7 +26,7 @@ HEADERS = fracto-ol.h
 
 SRCS =
 
-OBJ =	main.c
+OBJ =	fract-ol.c
 
 OBJS = $(SRCS:.c=.o)
 

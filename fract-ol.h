@@ -5,8 +5,8 @@
 # include <unistd.h>
 
 #define INTER 20
-#define WINWIDTH 1920
-#define WINHEIGTH 1080
+#define WINWIDTH 500
+#define WINHEIGTH 500
 
 typedef struct	s_data {
 	void	*img;
@@ -17,8 +17,13 @@ typedef struct	s_data {
 }				t_data;
 
 typedef struct	s_pos {
-	double	reel;
-	double	imaginary;
+	float	reel;
+	float	imaginary;
 }				t_pix;
+
+
+// typedef struct	s_info {
+
+// }				t_info;
 
 #endif
