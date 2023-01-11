@@ -13,8 +13,8 @@ t_pix	axis_converter(t_pix position, t_info mlx)
 {
 	t_pix	returned;
 
-	returned.reel = ((position.reel - (WINWIDTH / 2)) / 100 * (0.5) - 0.5);
-	returned.imaginary = ((position.imaginary - (WINHEIGTH / 2)) / 100 * (0.5));
+	returned.reel = ((position.reel - (WINWIDTH / 2)) / 100 * (mlx.zoom) - 0.5);
+	returned.imaginary = ((position.imaginary - (WINHEIGTH / 2)) / 100 * (mlx.zoom));
 	return (returned);
 }
 
@@ -49,22 +49,11 @@ void	*iter(t_info mlx)
 	mlx.iter += 1;
 }
 
-int main()
+void	aff_fract(t_info mlx, t_pix position, t_data img)
 {
-	t_info	mlx;
-	t_data	img;
-	t_pix	position;
 	t_pix	checking;
 	float	checker;
 
-	mlx.mlx_ptr = mlx_init();
-	mlx.mlx_win = mlx_new_window(mlx.mlx_ptr, WINWIDTH, WINHEIGTH, "fract-ol");
-	img.img = mlx_new_image(mlx.mlx_ptr, WINWIDTH, WINHEIGTH);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	mlx.iter = 400;
-	position.reel = 0;
-	position.imaginary = 0;
 	while (position.reel < WINWIDTH)
 	{
 		position.imaginary = 0;
@@ -86,7 +75,28 @@ int main()
 		position.reel++;
 	}
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.mlx_win, img.img, 0, 0);
-	//mlx_mouse_hook(mlx.mlx_win, *zoom(), );
+}
+
+int main()
+{
+	t_info	mlx;
+	t_data	img;
+	t_pix	position;
+	t_pix	checking;
+	float	checker;
+
+	mlx.mlx_ptr = mlx_init();
+	mlx.mlx_win = mlx_new_window(mlx.mlx_ptr, WINWIDTH, WINHEIGTH, "fract-ol");
+	img.img = mlx_new_image(mlx.mlx_ptr, WINWIDTH, WINHEIGTH);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
+								&img.endian);
+	mlx.iter = 40;
+	mlx.zoom = 1;
+	position.reel = 0;
+	position.imaginary = 0;
+
+	aff_fract(mlx, position, img);
+	
 	//mlx_key_hook(mlx.mlx_win, iter(), &mlx);
 	mlx_loop(mlx.mlx_ptr);
 }

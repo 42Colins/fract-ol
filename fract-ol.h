@@ -27,7 +27,7 @@ typedef struct	s_info{
 	float	zoom;
 }				t_info;
 
-void	zoom(t_info info);
+void	zoom(int mousecode, t_info info);
 
 #endif
 

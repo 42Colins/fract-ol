@@ -6,7 +6,7 @@
 #    By: cprojean <cprojean@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:36:52 by cprojean          #+#    #+#              #
-#    Updated: 2023/01/04 15:15:33 by cprojean         ###   ########.fr        #
+#    Updated: 2023/01/11 16:23:38 by cprojean         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ HEADERS = fracto-ol.h
 
 SRCS =
 
-OBJ =	fract-ol.c
+OBJ =	fract-ol.c	\
+		hooks.c
 
 OBJS = $(SRCS:.c=.o)
 
