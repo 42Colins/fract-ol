@@ -44,9 +44,20 @@ float	fractal(t_info checking, t_info mlx)
 	return (1);
 }
 
-void	key_test(int key, t_info mlx)
+void	key_test(int key, t_info *mlx)
 {
 	ft_putnbr(key);
+	//mlx_destroy_image(mlx.mlx_ptr, mlx.img_ptr);
+	mlx->iter += 1;
+	mlx->reel_ptr = 0;
+	mlx->im_ptr = 0;
+	aff_fract(*mlx);
+}
+
+int		close_window(int key, t_info *mlx)
+{
+	mlx_destroy_window(mlx->mlx_ptr, mlx->mlx_win);
+	return (0);
 }
 
 void	aff_fract(t_info mlx)
@@ -74,6 +85,9 @@ void	aff_fract(t_info mlx)
 		}
 		mlx.reel++;
 	}
+	if (mlx.count == 1)
+		mlx_destroy_image(mlx.mlx_ptr, mlx.img_ptr);
+	mlx.count = 1;
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.mlx_win, mlx.img_ptr, 0, 0);
 }
 
@@ -84,19 +98,26 @@ int main()
 
 	mlx.mlx_ptr = mlx_init();
 	mlx.mlx_win = mlx_new_window(mlx.mlx_ptr, WINWIDTH, WINHEIGTH, "fract-ol");
+	printf("%p\n", mlx.img_addr);
 	mlx.img_ptr = mlx_new_image(mlx.mlx_ptr, WINWIDTH, WINHEIGTH);
 	mlx.img_addr = mlx_get_data_addr(mlx.img_ptr, &mlx.bits_per_pixel, &mlx.line_length,
 								&mlx.endian);
-	mlx.iter = 40;
+	printf("%p", mlx.img_addr);
+	mlx.iter = 4;
 	mlx.zoom = 1;
 	mlx.reel = 0;
 	mlx.imaginary = 0;
+	mlx.count = 0;
+	mlx.zoom_ptr = &mlx.zoom;
+	mlx.reel_ptr = &mlx.reel;
+	mlx.im_ptr = &mlx.imaginary;
+
 
 	aff_fract(mlx);
-	//mlx_mouse_hook(mlx.mlx_win, zoom, &mlx);
+	mlx_mouse_hook(mlx.mlx_win, zoom, &mlx);
 	mlx_hook(mlx.mlx_win, 2, (1L<<0), key_test, &mlx);
 
-	//aff_fract(mlx);
-	//mlx_key_hook(mlx.mlx_win, iter(), &mlx);
+	aff_fract(mlx);
+	//mlx_key_hook(mlx.mlx_win, zoom, &mlx);
 	mlx_loop(mlx.mlx_ptr);
 }

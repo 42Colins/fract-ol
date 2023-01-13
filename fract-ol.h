@@ -16,12 +16,17 @@ typedef struct	s_info{
 	int		line_length;
 	int		endian;
 	int		iter;
-	float	zoom;
-	float	reel;
-	float	imaginary;
+	int		*iter_ptr;
+	double	zoom;
+	double	*zoom_ptr;
+	double	reel;
+	double	*reel_ptr;
+	double	*im_ptr;
+	double	imaginary;
+	int		count;
 }				t_info;
 
-int	zoom(int mousecode, int x, int y, t_info info);
+int	zoom(int mousecode, int x, int y, t_info *info);
 
 void	aff_fract(t_info mlx);
 
@@ -29,7 +34,8 @@ void    ft_putnbr(int x);
 
 void    ft_next_putnbr(int x);
 
+void    ft_putchar(char c);
 
+void    ft_print_address(size_t number);
 
 #endif
-
