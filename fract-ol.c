@@ -13,7 +13,7 @@ t_info	axis_converter(t_info mlx)
 {
 	t_info	returned;
 
-	returned.reel = ((mlx.reel - (WINWIDTH / 2)) / 100 * (mlx.zoom) - 0.5);
+	returned.reel = ((mlx.reel - (WINWIDTH / 2)) / 100 * (mlx.zoom));
 	returned.imaginary = ((mlx.imaginary - (WINHEIGTH / 2)) / 100 * (mlx.zoom));
 	return (returned);
 }
@@ -28,8 +28,6 @@ float	fractal(t_info checking, t_info mlx)
 	x = 0;
 	y = 0;
 	runner = 0;
-	// printf("%f\n", position.reel);
-	// printf("%f\n", position.imaginary);
 	while(runner < mlx.iter)
 	{
 		Zn = (x * x) - (y * y) + checking.reel;
@@ -37,8 +35,6 @@ float	fractal(t_info checking, t_info mlx)
 		x = Zn;
 		if ((x * x) + (y * y) > 4)
 			return (runner);
-		// printf("x = %f\ny = %f\n", x, y);
-		// printf("runner = %f\n\n", runner);
 		runner++;
 	}
 	return (1);
@@ -47,7 +43,6 @@ float	fractal(t_info checking, t_info mlx)
 void	key_test(int key, t_info *mlx)
 {
 	ft_putnbr(key);
-	//mlx_destroy_image(mlx.mlx_ptr, mlx.img_ptr);
 	mlx->iter += 1;
 	mlx->reel_ptr = 0;
 	mlx->im_ptr = 0;
@@ -56,8 +51,9 @@ void	key_test(int key, t_info *mlx)
 
 int		close_window(int key, t_info *mlx)
 {
+	mlx_destroy_image(mlx->mlx_ptr, mlx->img_ptr);
 	mlx_destroy_window(mlx->mlx_ptr, mlx->mlx_win);
-	return (0);
+	exit(0);
 }
 
 void	aff_fract(t_info mlx)
@@ -72,13 +68,14 @@ void	aff_fract(t_info mlx)
 		{
 			checking = axis_converter(mlx);
 			checker = fractal(checking, mlx);
-			//printf("checker = %f\n", checker);
 			if (checker == 1)
 				my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0x000000);
 			else if (checker == 2)
 				my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xb08968);
 			else if (checker == 3)
 				my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0x7f5539);
+			else if (checker >= 3)
+				my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xAAAAAA);
 			else
 				my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0x9c6644);
 			mlx.imaginary++;
@@ -118,6 +115,6 @@ int main()
 	mlx_hook(mlx.mlx_win, 2, (1L<<0), key_test, &mlx);
 
 	aff_fract(mlx);
-	//mlx_key_hook(mlx.mlx_win, zoom, &mlx);
+	mlx_hook(mlx.mlx_win, 2, 1L<<0, close, &mlx);
 	mlx_loop(mlx.mlx_ptr);
 }

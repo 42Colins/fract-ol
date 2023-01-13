@@ -10,14 +10,18 @@ int	zoom(int mousecode, int x, int y, t_info *info)
 	info->im_ptr = 0;
 	if (mousecode == 4)
 	{
-		*info->zoom_ptr += 0.01;
+		*info->zoom_ptr += 0.03;
+		info->iter -= 1;
 		//mlx_destroy_image(info->mlx_ptr, info->img_ptr);
 		aff_fract(*info);
 	}
 	else if (mousecode == 5)
 	{
 		if (*info->zoom_ptr - 0.01 != 0)
-			*info->zoom_ptr -= 0.01;
+		{
+			*info->zoom_ptr -= 0.03;
+			info->iter += 1;
+		}
 		//mlx_destroy_image(info->mlx_ptr, info->img_ptr);
 		aff_fract(*info);
 	}
