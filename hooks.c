@@ -12,7 +12,6 @@ int	zoom(int mousecode, int x, int y, t_info *info)
 	{
 		*info->zoom_ptr += 0.03;
 		info->iter -= 1;
-		//mlx_destroy_image(info->mlx_ptr, info->img_ptr);
 		aff_fract(*info);
 	}
 	else if (mousecode == 5)
@@ -22,11 +21,71 @@ int	zoom(int mousecode, int x, int y, t_info *info)
 			*info->zoom_ptr -= 0.03;
 			info->iter += 1;
 		}
-		//mlx_destroy_image(info->mlx_ptr, info->img_ptr);
 		aff_fract(*info);
 	}
 	return (mousecode);
 }
+
+int	close_window(t_info *mlx)
+{
+	mlx_destroy_image(mlx->mlx_ptr, mlx->img_ptr);
+	mlx_destroy_window(mlx->mlx_ptr, mlx->mlx_win);
+	exit (0);
+}
+
+void	key_test(int key, t_info *mlx)
+{
+	ft_putnbr(key);
+	if (key == 12) //Q
+	{
+		mlx->iter += 1;
+		mlx->reel_ptr = 0;
+		mlx->im_ptr = 0;
+	}
+	if (key == 13) //W
+	{
+		mlx->iter -= 1;
+		mlx->reel_ptr = 0;
+		mlx->im_ptr = 0;
+	}
+	if (key == 53) //ESC
+	{
+		mlx_destroy_image(mlx->mlx_ptr, mlx->img_ptr);
+		mlx_destroy_window(mlx->mlx_ptr, mlx->mlx_win);
+		exit (0);
+	}
+	aff_fract(*mlx);
+}
+
+t_info	mouse_pos(int mousekey, int x, int y, t_info mlx)
+{
+	t_info	returned;
+
+	returned.reel = ((mlx.reel - (WINWIDTH / 2)) / 100 * (mlx.zoom));
+	returned.imaginary = ((mlx.imaginary - (WINHEIGTH / 2)) / 100 * (mlx.zoom));
+	return (returned);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void    			ft_next_putnbr(int x)
 {
