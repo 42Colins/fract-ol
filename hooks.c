@@ -4,23 +4,30 @@
 
 int	zoom(int mousecode, int x, int y, t_info *info)
 {
-	(void)x;
-	(void)y;
 	info->reel_ptr = 0;
 	info->im_ptr = 0;
-	if (mousecode == 4)
+
+	if (mousecode == 4) //zoom -
 	{
-		*info->zoom_ptr += 0.03;
-		info->iter -= 1;
+		*info->zoom_ptr /= 1.1;
+		if (info->iter - 1 != 3)
+			info->iter -= 1;
+		info->mouse_pos = mouse_pos(x, y, info);
+		ft_putnbr(info->mouse_pos.x);
+		ft_putchar('\n');
+		ft_putnbr(info->mouse_pos.y);
+		ft_putchar('\n');
 		aff_fract(*info);
 	}
-	else if (mousecode == 5)
+	else if (mousecode == 5) //zoom +
 	{
-		if (*info->zoom_ptr - 0.01 != 0)
-		{
-			*info->zoom_ptr -= 0.03;
-			info->iter += 1;
-		}
+		*info->zoom_ptr *= 1.1;
+		info->iter += 1;
+		info->mouse_pos = mouse_pos(x, y, info);
+		ft_putnbr(info->mouse_pos.x);
+		ft_putchar('\n');
+		ft_putnbr(info->mouse_pos.y);
+		ft_putchar('\n');
 		aff_fract(*info);
 	}
 	return (mousecode);
@@ -35,16 +42,21 @@ int	close_window(t_info *mlx)
 
 void	key_test(int key, t_info *mlx)
 {
+	t_pos	pos;
+
+	pos.x = 0;
+	pos.y = 0;
 	ft_putnbr(key);
 	if (key == 12) //Q
 	{
-		mlx->iter += 1;
+		if (mlx->iter - 1 != 3)
+			mlx->iter -= 1;
 		mlx->reel_ptr = 0;
 		mlx->im_ptr = 0;
 	}
 	if (key == 13) //W
 	{
-		mlx->iter -= 1;
+		mlx->iter += 1;
 		mlx->reel_ptr = 0;
 		mlx->im_ptr = 0;
 	}
@@ -57,13 +69,23 @@ void	key_test(int key, t_info *mlx)
 	aff_fract(*mlx);
 }
 
-t_info	mouse_pos(int mousekey, int x, int y, t_info mlx)
+t_pos	mouse_pos(int x, int y, t_info *mlx)
 {
-	t_info	returned;
+	t_pos	pos;
 
-	returned.reel = ((mlx.reel - (WINWIDTH / 2)) / 100 * (mlx.zoom));
-	returned.imaginary = ((mlx.imaginary - (WINHEIGTH / 2)) / 100 * (mlx.zoom));
-	return (returned);
+
+	//pos.x = ((x - (WINWIDTH / 2)) / (100 * (mlx->zoom)) + mlx->reel / 225);
+	pos.x = (x - WINWIDTH / 2.0) / (0.5 * mlx->zoom * WINWIDTH) + mlx->mouse_pos.y / 250;
+	//pos.x = ((x - (WINWIDTH / 2)) / (0.5 * (mlx->zoom) * WINWIDTH) + mlx->reel / 225);
+	//pos.y = ((y - (WINHEIGTH / 2)) / (100 * (mlx->zoom)) + mlx->imaginary / 225);
+	pos.y = (y - WINHEIGTH / 2.0) / (0.5 * mlx->zoom * WINHEIGTH) + mlx->mouse_pos.y / 250;
+	pos.x *= 250;
+	pos.y *= 250;
+	mlx->mouse_ptr = &pos;
+	ft_putnbr(pos.x);
+	ft_putchar('\n');
+	ft_putnbr(pos.y);
+	return (pos);
 }
 
 
@@ -87,7 +109,7 @@ t_info	mouse_pos(int mousekey, int x, int y, t_info mlx)
 
 
 
-void    			ft_next_putnbr(int x)
+void    ft_next_putnbr(int x)
 {
         char    mod;
 

@@ -9,16 +9,18 @@ void	my_mlx_pixel_put(t_info *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-t_info	axis_converter(t_info mlx)
+t_pos	axis_converter(t_info mlx)
 {
-	t_info	returned;
+	t_pos	returned;
 
-	returned.reel = ((mlx.reel - (WINWIDTH / 2)) / 100 * (mlx.zoom));
-	returned.imaginary = ((mlx.imaginary - (WINHEIGTH / 2)) / 100 * (mlx.zoom));
+	//returned.x		= ((mlx.reel - (WINWIDTH / 2)) / (100 * (mlx.zoom)));
+	returned.x = (mlx.reel - WINWIDTH / 2.0) / (0.5 * mlx.zoom * WINWIDTH) + mlx.mouse_pos.y / 250;
+	//returned.y	= ((mlx.imaginary - (WINHEIGTH / 2)) / (100 * (mlx.zoom)));
+	returned.y = (mlx.imaginary - WINHEIGTH / 2.0) / (0.5 * mlx.zoom * WINHEIGTH) + mlx.mouse_pos.y / 250;
 	return (returned);
 }
 
-float	fractal(t_info checking, t_info mlx)
+float	fractal(t_pos checking, t_info mlx)
 {
 	double		runner;
 	float	Zn;
@@ -30,8 +32,8 @@ float	fractal(t_info checking, t_info mlx)
 	runner = 0;
 	while(runner < mlx.iter)
 	{
-		Zn = (x * x) - (y * y) + checking.reel;
-		y = (2 * x * y + checking.imaginary);
+		Zn = (x * x) - (y * y) + checking.x;
+		y = (2 * x * y + checking.y);
 		x = Zn;
 		if ((x * x) + (y * y) > 4)
 			return (runner);
@@ -42,7 +44,7 @@ float	fractal(t_info checking, t_info mlx)
 
 void	aff_fract(t_info mlx)
 {
-	t_info	checking;
+	t_pos	checking;
 	float	checker;
 
 	while (mlx.reel < WINWIDTH)
@@ -74,7 +76,8 @@ void	aff_fract(t_info mlx)
 
 int main()
 {
-	t_info mlx;
+	t_info	mlx;
+	t_pos	mousepos;
 
 	mlx.mlx_ptr = mlx_init();
 	mlx.mlx_win = mlx_new_window(mlx.mlx_ptr, WINWIDTH, WINHEIGTH, "fract-ol");
@@ -82,16 +85,16 @@ int main()
 	mlx.img_addr = mlx_get_data_addr(mlx.img_ptr, &mlx.bits_per_pixel, &mlx.line_length,
 								&mlx.endian);
 	mlx.iter = 4;
-	mlx.zoom = 1;
+	mlx.zoom = 0.5;
 	mlx.reel = 0;
 	mlx.imaginary = 0;
 	mlx.count = 0;
-	mlx.mouse_x_ptr = &mlx.mouse_x;
-	mlx.mouse_y_ptr = &mlx.mouse_y;
 	mlx.zoom_ptr = &mlx.zoom;
 	mlx.reel_ptr = &mlx.reel;
 	mlx.im_ptr = &mlx.imaginary;
-
+	mlx.mouse_ptr = &mlx.mouse_pos;
+	mlx.mouse_pos.x = 0;
+	mlx.mouse_pos.y = 0;
 
 	aff_fract(mlx);
 	mlx_hook(mlx.mlx_win, 2, (1L<<0), key_test, &mlx);
