@@ -13,19 +13,17 @@ t_pos	axis_converter(t_info mlx)
 {
 	t_pos	returned;
 
-	//returned.x		= ((mlx.reel - (WINWIDTH / 2)) / (100 * (mlx.zoom)));
-	returned.x = (mlx.reel - WINWIDTH / 2.0) / (0.5 * mlx.zoom * WINWIDTH) + mlx.mouse_pos.y / 250;
-	//returned.y	= ((mlx.imaginary - (WINHEIGTH / 2)) / (100 * (mlx.zoom)));
+	returned.x = (mlx.reel - WINWIDTH / 2.0) / (0.5 * mlx.zoom * WINWIDTH) + mlx.mouse_pos.x / 250;
 	returned.y = (mlx.imaginary - WINHEIGTH / 2.0) / (0.5 * mlx.zoom * WINHEIGTH) + mlx.mouse_pos.y / 250;
 	return (returned);
 }
 
-float	fractal(t_pos checking, t_info mlx)
+float	mandelbrot(t_pos checking, t_info mlx)
 {
 	double		runner;
-	float	Zn;
-	float	x;
-	float	y;
+	double	Zn;
+	double	x;
+	double	y;
 
 	x = 0;
 	y = 0;
@@ -34,6 +32,28 @@ float	fractal(t_pos checking, t_info mlx)
 	{
 		Zn = (x * x) - (y * y) + checking.x;
 		y = (2 * x * y + checking.y);
+		x = Zn;
+		if ((x * x) + (y * y) > 4)
+			return (runner);
+		runner++;
+	}
+	return (1);
+}
+
+float	julia(t_pos checking, t_info mlx)
+{
+	double	runner;
+	double	Zn;
+	double	x;
+	double	y;
+
+	x = checking.x;
+	y = checking.y;
+	runner = 0;
+	while(runner < mlx.iter)
+	{
+		Zn = (x * x) - (y * y) + 0.39;
+		y = (2 * x * y) + 0.6;
 		x = Zn;
 		if ((x * x) + (y * y) > 4)
 			return (runner);
@@ -53,17 +73,26 @@ void	aff_fract(t_info mlx)
 		while(mlx.imaginary < WINHEIGTH)
 		{
 			checking = axis_converter(mlx);
-			checker = fractal(checking, mlx);
-			if (checker == 1)
-				my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0x000000);
-			else if (checker == 2)
-				my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xb08968);
-			else if (checker == 3)
-				my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0x7f5539);
-			else if (checker >= 3)
-				my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xAAAAAA);
-			else
-				my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0x9c6644);
+			//checker = mandelbrot(checking, mlx);
+			checker = julia(checking, mlx);
+			//if (checker < 1)
+				//my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xFFD7D5);
+			//if (checker == 1)
+				//my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xFFFFFF);
+			// else if (checker == 2)
+			// 	my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xb08968);
+			// else if (checker == 3)
+			// 	my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0x7f5539);
+			// else if (checker >= 3)
+			// 	my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xAAAAAA);
+			// else
+			// 	my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0x9c6644);
+
+				//my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xDD1C1A * checker); //Rouge/Bleu
+				//my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xFFF1D0 * checker); //Beige/rose
+
+			//my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xFFFFFF);
+			my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xFFD7D5 * checker);
 			mlx.imaginary++;
 		}
 		mlx.reel++;
@@ -77,7 +106,6 @@ void	aff_fract(t_info mlx)
 int main()
 {
 	t_info	mlx;
-	t_pos	mousepos;
 
 	mlx.mlx_ptr = mlx_init();
 	mlx.mlx_win = mlx_new_window(mlx.mlx_ptr, WINWIDTH, WINHEIGTH, "fract-ol");

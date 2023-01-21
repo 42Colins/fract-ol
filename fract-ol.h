@@ -38,7 +38,7 @@ typedef struct	s_info{
 
 int	zoom(int mousecode, int x, int y, t_info *info);
 
-void	key_test(int key, t_info *mlx);
+int	key_test(int key, t_info *mlx);
 
 int		close_window(t_info *mlx);
 
