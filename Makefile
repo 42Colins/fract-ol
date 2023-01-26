@@ -6,11 +6,11 @@
 #    By: cprojean <cprojean@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:36:52 by cprojean          #+#    #+#              #
-#    Updated: 2023/01/16 16:11:46 by cprojean         ###   ########.fr        #
+#    Updated: 2023/01/26 18:21:51 by cprojean         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fract-ol
+NAME = fract_ol
 
 CC = gcc
 
@@ -22,9 +22,9 @@ ARFLAGS = rcs
 
 rm = rm -rf
 
-HEADERS = fracto-ol.h
+HEADERS = fracto_ol.h
 
-SRCS =	fract-ol.c	\
+SRCS =	fract_ol.c	\
 		hooks.c
 
 OBJS = $(SRCS:.c=.o)
