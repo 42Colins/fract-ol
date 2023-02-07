@@ -101,3 +101,10 @@ t_pos	mouse_pos(int x, int y, t_info *mlx)
 	mlx->mouse_ptr = &pos;
 	return (pos);
 }
+
+void	print_params()
+{
+	ft_printf("M for Mandelbrot \n");
+	ft_printf("Or");
+	ft_printf("J for Julia \n");
+}

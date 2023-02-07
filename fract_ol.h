@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fract_ol.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cprojean <cprojean@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:16:22 by cprojean          #+#    #+#             */
-/*   Updated: 2023/01/26 18:24:59 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/02/04 18:35:16 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ int		close_window(t_info *mlx);
 void	aff_fract(t_info mlx);
 t_pos	mouse_pos(int x, int y, t_info *mlx);
 int		julia_keys(int key, t_info *mlx);
+void	print_params();
+
 
 #endif
