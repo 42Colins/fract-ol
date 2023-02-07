@@ -6,48 +6,51 @@
 #    By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:36:52 by cprojean          #+#    #+#              #
-#    Updated: 2023/02/04 18:46:15 by cprojean         ###   ########.fr        #
+#    Updated: 2023/02/04 18:28:45 by cprojean         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fract_ol
+NAME = libftprintf.a
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -g -Ofast
-
-MLXFLAGS = -L./mlx -lmlx -framework OpenGL -framework AppKit
+CFLAGS = -Wall -Werror -Wextra
 
 ARFLAGS = rcs
 
 rm = rm -rf
 
-HEADERS = fracto_ol.h
+HEADERS = ft_printf.h
 
-SRCS =	fract_ol.c	\
-		hooks.c
+SRCS =						ft_printf.c				\
+							ft_convert_hexa_maj.c	\
+							ft_convert_hexa_min.c	\
+							ft_print_address.c		\
+							ft_putnbr.c				\
+							ft_putlnbr.c			\
+							ft_putstr.c				\
+							which_varia.c			\
+							ft_putchar.c			\
 
 OBJS = $(SRCS:.c=.o)
 
-%.o: %.c	Makefile
-	$(CC) $(CFLAGS) -c $< -o $@
+$(NAME) :	$(OBJS) $(LIBFT) Makefile
+			$(MAKE) bonus -C libft
+			ar $(ARFLAGS) $(NAME) $(OBJS)
 
-$(NAME): $(OBJS) $(PRINTF) Makefile $(MLX) Makefile
-	$(MAKE) all -C mlx
-	$(MAKE) all -C printf
-	$(CC) $(OBJS) $(MLXFLAGS) -o $(NAME)
 
 all	:		$(NAME)
 
+
+
 clean :
-			$(MAKE) clean -C printf
-			$(MAKE) clean -C mlx
+			${MAKE} clean -C libft
 			$(RM) $(OBJS)
 
 fclean :	clean
-			$(MAKE) fclean -C printf
+			${MAKE} fclean -C libft
 			$(RM) $(NAME)
 
 re :		fclean all
 
-.SILENT :	$(OBJS) $(MLXc)
+.SILENT : $(OBJS)

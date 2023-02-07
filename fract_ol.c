@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fract_ol.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cprojean <cprojean@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:10:34 by cprojean          #+#    #+#             */
-/*   Updated: 2023/01/26 18:27:51 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/02/04 18:32:14 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ void	aff_fract(t_info mlx)
 			checking = axis_converter(mlx);
 			//checker = mandelbrot(checking, mlx);
 			checker = julia(checking, mlx);
-			my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xFFD7D5 * checker);
+			my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xFFD7D5 * (checker / 10));
+			//my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xC0A9B0 * (checker / 10));
 			mlx.imaginary++;
 		}
 		mlx.reel++;
@@ -122,6 +123,7 @@ int main()
 {
 	t_info	mlx;
 
+	print_params();
 	mlx.mlx_ptr = mlx_init();
 	mlx.mlx_win = mlx_new_window(mlx.mlx_ptr, WINWIDTH, WINHEIGTH, "fract-ol");
 	mlx.img_ptr = mlx_new_image(mlx.mlx_ptr, WINWIDTH, WINHEIGTH);

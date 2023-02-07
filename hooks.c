@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cprojean <cprojean@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:10:39 by cprojean          #+#    #+#             */
-/*   Updated: 2023/01/26 18:22:41 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/02/04 18:34:20 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fract-ol.h"
+#include "fract_ol.h"
 #include <stdio.h>
 #include <unistd.h>
 
@@ -100,4 +100,11 @@ t_pos	mouse_pos(int x, int y, t_info *mlx)
 	pos.y *= 250;
 	mlx->mouse_ptr = &pos;
 	return (pos);
+}
+
+void	print_params()
+{
+	ft_printf("M for Mandelbrot \n");
+	ft_printf("Or");
+	ft_printf("J for Julia \n");
 }
