@@ -6,7 +6,7 @@
 /*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 12:53:52 by cprojean          #+#    #+#             */
-/*   Updated: 2022/11/24 15:16:59 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/02/08 13:00:11 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_calloc(size_t count, size_t size)
 	size_t	total;
 
 	total = size * count;
-	if (count != 0 && (SIZE_MAX / count) < size)
+	if (count != 0 && (65535 / count) < size)
 		return (NULL);
 	calloc = malloc(total);
 	if (!calloc)

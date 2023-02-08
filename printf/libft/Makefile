@@ -6,11 +6,13 @@
 #    By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/10 14:30:05 by cprojean          #+#    #+#              #
-#    Updated: 2023/02/04 18:29:52 by cprojean         ###   ########.fr        #
+#    Updated: 2023/02/08 18:35:56 by cprojean         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =				libft.a
+
+NAME_bonus =		libftbonus.a
 
 CC =				cc
 
@@ -56,6 +58,8 @@ SRCS =				ft_atoi.c               \
 					ft_putstr_fd.c          \
 					ft_putendl_fd.c         \
 					ft_putnbr_fd.c          \
+					get_next_line.c         \
+					get_next_line_utils.c   \
 
 
 SRCS_bonus =		ft_lstnew.c             \
@@ -96,4 +100,4 @@ re :				fclean all
 
 .PHONY :			all make clean fclean re bonus
 
-.SILENT : $(OBJS) $(OBJS_bonus)
+.SILENT : $(OBJS) $(OBJS_bonus) $(NAME) $(NAME_bonus)

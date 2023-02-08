@@ -6,7 +6,7 @@
 /*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 23:16:37 by cprojean          #+#    #+#             */
-/*   Updated: 2022/12/03 23:50:49 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/02/08 12:56:11 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_putlnbr(unsigned int x, int *count)
 		ft_putlnbr(x, count);
 		ft_putchar(mod, count);
 	}
-	else if ((x >= 0) && (x < 10))
+	else if (x < 10)
 	{
 		mod = (x % 10) + 48;
 		ft_putchar(mod, count);

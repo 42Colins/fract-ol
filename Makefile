@@ -6,9 +6,18 @@
 #    By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:36:52 by cprojean          #+#    #+#              #
-#    Updated: 2023/02/04 18:46:15 by cprojean         ###   ########.fr        #
+#    Updated: 2023/02/08 15:55:45 by cprojean         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+ifeq ($(shell uname -s), Linux)
+	MLXDIR	=	./minilibx/
+	MLXFLAGS	=	-Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+endif
+ifeq ($(shell uname -s), Darwin)
+	MLXDIR	=	./mlx/
+	MLXFLAGS =	-lmlx -framework OpenGL -framework AppKit
+endif
 
 NAME = fract_ol
 
@@ -16,7 +25,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -g -Ofast
 
-MLXFLAGS = -L./mlx -lmlx -framework OpenGL -framework AppKit
+PRINTFFLAGS = -L./printf -lprintf
 
 ARFLAGS = rcs
 
@@ -29,19 +38,22 @@ SRCS =	fract_ol.c	\
 
 OBJS = $(SRCS:.c=.o)
 
-%.o: %.c	Makefile
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(NAME): $(OBJS) $(PRINTF) Makefile $(MLX) Makefile
-	$(MAKE) all -C mlx
+printf :
 	$(MAKE) all -C printf
-	$(CC) $(OBJS) $(MLXFLAGS) -o $(NAME)
+
+%.o: %.c
+
+	$(CC) $(PRINTFFLAGS) -I/usr/include -Imlx_linux -O3 $(CFLAGS) -c $< -o $@
+
+$(NAME): $(OBJS) printf Makefile $(MLX) Makefile
+	$(MAKE) all -C $(MLXDIR)
+	$(CC) $(OBJS) -L$(MLXDIR) $(MLXFLAGS) $(PRINTFFLAGS) -o $(NAME)
 
 all	:		$(NAME)
 
 clean :
 			$(MAKE) clean -C printf
-			$(MAKE) clean -C mlx
+			$(MAKE) clean -C $(MLXDIR)
 			$(RM) $(OBJS)
 
 fclean :	clean
@@ -50,4 +62,6 @@ fclean :	clean
 
 re :		fclean all
 
-.SILENT :	$(OBJS) $(MLXc)
+.PHONY : printf all clean re fclean
+
+.SILENT :	$(OBJS) $(MLXc) $(NAME) printf

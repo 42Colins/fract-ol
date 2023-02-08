@@ -6,11 +6,11 @@
 #    By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:36:52 by cprojean          #+#    #+#              #
-#    Updated: 2023/02/04 18:28:45 by cprojean         ###   ########.fr        #
+#    Updated: 2023/02/08 15:44:24 by cprojean         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME = libprintf.a
 
 CC = gcc
 
@@ -53,4 +53,4 @@ fclean :	clean
 
 re :		fclean all
 
-.SILENT : $(OBJS)
+.SILENT : $(OBJS) $(NAME)

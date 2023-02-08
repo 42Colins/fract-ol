@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cprojean <cprojean@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:03:39 by cprojean          #+#    #+#             */
-/*   Updated: 2022/11/30 18:13:34 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:36:16 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 
 # include <unistd.h>
+# include "get_next_line.h"
 # include <stdlib.h>
 
 typedef struct s_list

@@ -6,19 +6,39 @@
 /*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:16:22 by cprojean          #+#    #+#             */
-/*   Updated: 2023/02/04 18:35:16 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:16:24 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACT_OL_H
 # define FRACT_OL_H
 
-# include "mlx/mlx.h"
+# ifdef __linux__
+#	include "minilibx/mlx.h"
+#	define ESC			65307
+#	define Q			113
+#	define W			119
+#	define REu			114
+#	define REd			116
+#	define IMu			105
+#	define IMd			111
+# elif __APPLE__
+#	include "../mlx/mlx.h"
+#	define ESC			53
+#	define Q			12
+#	define W			13
+#	define REu			15
+#	define REd			17
+#	define IMu			105
+#	define IMd			111
+# endif
+
 # include <unistd.h>
 # include <stdlib.h>
 
 # define WINWIDTH 1000
 # define WINHEIGTH 1000
+
 
 typedef struct s_pos{
 	double	x;
