@@ -6,7 +6,7 @@
 #    By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:36:52 by cprojean          #+#    #+#              #
-#    Updated: 2023/02/08 15:55:45 by cprojean         ###   ########.fr        #
+#    Updated: 2023/02/13 18:45:51 by cprojean         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,11 @@ endif
 
 NAME = fract_ol
 
-CC = gcc
+CC = cc
 
 CFLAGS = -Wall -Wextra -g -Ofast
 
-PRINTFFLAGS = -L./printf -lprintf
+libftFLAGS = -L./libft -lft
 
 ARFLAGS = rcs
 
@@ -38,30 +38,28 @@ SRCS =	fract_ol.c	\
 
 OBJS = $(SRCS:.c=.o)
 
-printf :
-	$(MAKE) all -C printf
-
 %.o: %.c
 
-	$(CC) $(PRINTFFLAGS) -I/usr/include -Imlx_linux -O3 $(CFLAGS) -c $< -o $@
+	$(CC) $(libftFLAGS) -I/usr/include -Imlx_linux -O3 $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJS) printf Makefile $(MLX) Makefile
+$(NAME): $(OBJS) $(libft) Makefile $(MLX) Makefile
+	$(MAKE) all -C libft
 	$(MAKE) all -C $(MLXDIR)
-	$(CC) $(OBJS) -L$(MLXDIR) $(MLXFLAGS) $(PRINTFFLAGS) -o $(NAME)
+	$(CC) $(OBJS) -L$(MLXDIR) $(MLXFLAGS) $(libftFLAGS) -o $(NAME)
 
 all	:		$(NAME)
 
 clean :
-			$(MAKE) clean -C printf
+			$(MAKE) clean -C libft
 			$(MAKE) clean -C $(MLXDIR)
 			$(RM) $(OBJS)
 
 fclean :	clean
-			$(MAKE) fclean -C printf
+			$(MAKE) fclean -C libft
 			$(RM) $(NAME)
 
 re :		fclean all
 
-.PHONY : printf all clean re fclean
+.PHONY : libft all clean re fclean
 
-.SILENT :	$(OBJS) $(MLXc) $(NAME) printf
+.SILENT :	$(OBJS) $(MLXc) $(NAME) libft
