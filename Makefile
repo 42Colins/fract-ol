@@ -6,7 +6,7 @@
 #    By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:36:52 by cprojean          #+#    #+#              #
-#    Updated: 2023/02/13 18:45:51 by cprojean         ###   ########.fr        #
+#    Updated: 2023/02/14 11:04:09 by cprojean         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,9 @@ CFLAGS = -Wall -Wextra -g -Ofast
 
 libftFLAGS = -L./libft -lft
 
-ARFLAGS = rcs
-
 rm = rm -rf
 
-HEADERS = fracto_ol.h
+HEADERS = fract_ol.h
 
 SRCS =	fract_ol.c	\
 		hooks.c
@@ -43,7 +41,7 @@ OBJS = $(SRCS:.c=.o)
 	$(CC) $(libftFLAGS) -I/usr/include -Imlx_linux -O3 $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS) $(libft) Makefile $(MLX) Makefile
-	$(MAKE) all -C libft
+	$(MAKE) bonus -C libft
 	$(MAKE) all -C $(MLXDIR)
 	$(CC) $(OBJS) -L$(MLXDIR) $(MLXFLAGS) $(libftFLAGS) -o $(NAME)
 
