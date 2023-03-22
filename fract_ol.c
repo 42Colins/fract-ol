@@ -6,7 +6,7 @@
 /*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:10:34 by cprojean          #+#    #+#             */
-/*   Updated: 2023/02/04 18:32:14 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/03/22 11:44:04 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,4 +135,5 @@ int main()
 	mlx_hook(mlx.mlx_win, 17, 0, close_window, &mlx);
 	mlx_mouse_hook(mlx.mlx_win, zoom, &mlx);
 	mlx_loop(mlx.mlx_ptr);
+	mlx_destroy_image(mlx.mlx_ptr, mlx.img_ptr);
 }
