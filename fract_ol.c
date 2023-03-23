@@ -6,7 +6,7 @@
 /*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:10:34 by cprojean          #+#    #+#             */
-/*   Updated: 2023/03/22 11:44:04 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/03/23 15:14:27 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,29 +33,7 @@ t_pos	axis_converter(t_info mlx)
 	return (returned);
 }
 
-float	mandelbrot(t_pos checking, t_info mlx)
-{
-	double	runner;
-	double	zn;
-	double	x;
-	double	y;
-
-	x = 0;
-	y = 0;
-	runner = 0;
-	while (runner < mlx.iter)
-	{
-		zn = (x * x) - (y * y) + checking.x;
-		y = (2 * x * y + checking.y);
-		x = zn;
-		if ((x * x) + (y * y) > 4)
-			return (runner);
-		runner++;
-	}
-	return (1);
-}
-
-float	julia(t_pos checking, t_info mlx)
+float	newton(t_pos checking, t_info mlx)
 {
 	double	runner;
 	double	zn;
@@ -67,11 +45,11 @@ float	julia(t_pos checking, t_info mlx)
 	runner = 0;
 	while (runner < mlx.iter)
 	{
-		zn = (x * x) - (y * y) + mlx.julia_r;
-		y = (2 * x * y) + mlx.julia_i;
+		zn = (x * x * x) - 3 * x * (y * y) + mlx.julia_r;
+		y = 3 * (x * x) * y - (y * y * y) - mlx.julia_i;
 		x = zn;
-		if ((x * x) + (y * y) > 4)
-			return (runner);
+		if (x * x + y * y > 4)
+			return (runner / mlx.iter);
 		runner++;
 	}
 	return (1);
@@ -88,10 +66,9 @@ void	aff_fract(t_info mlx)
 		while (mlx.imaginary < WINHEIGTH)
 		{
 			checking = axis_converter(mlx);
-			//checker = mandelbrot(checking, mlx);
-			checker = julia(checking, mlx);
-			my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xFFD7D5 * (checker / 10));
-			//my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, 0xC0A9B0 * (checker / 10));
+			checker = which_fractal(checking, &mlx);
+			my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, \
+				mlx.color * (checker / 10));
 			mlx.imaginary++;
 		}
 		mlx.reel++;
@@ -102,38 +79,23 @@ void	aff_fract(t_info mlx)
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.mlx_win, mlx.img_ptr, 0, 0);
 }
 
-void	init_mlx(t_info *mlx)
-{
-	mlx->iter = 4;
-	mlx->zoom = 0.5;
-	mlx->reel = 0;
-	mlx->imaginary = 0;
-	mlx->count = 0;
-	mlx->zoom_ptr = &mlx->zoom;
-	mlx->reel_ptr = &mlx->reel;
-	mlx->im_ptr = &mlx->imaginary;
-	mlx->mouse_ptr = &mlx->mouse_pos;
-	mlx->mouse_pos.x = 0;
-	mlx->mouse_pos.y = 0;
-	mlx->julia_r = -0.8;
-	mlx->julia_i = 0.4;
-}
-
-int main()
+int	main(int argc, char **argv)
 {
 	t_info	mlx;
 
-	print_params();
 	mlx.mlx_ptr = mlx_init();
 	mlx.mlx_win = mlx_new_window(mlx.mlx_ptr, WINWIDTH, WINHEIGTH, "fract-ol");
 	mlx.img_ptr = mlx_new_image(mlx.mlx_ptr, WINWIDTH, WINHEIGTH);
 	mlx.img_addr = mlx_get_data_addr(mlx.img_ptr, &mlx.bits_per_pixel, \
 	&mlx.line_length, &mlx.endian);
-	init_mlx(&mlx);
+	print_params(argc, argv, &mlx);
 	aff_fract(mlx);
-	mlx_hook(mlx.mlx_win, 2, (1L<<0), key_test, &mlx);
+	mlx_hook(mlx.mlx_win, 2, (1L << 0), key_test, &mlx);
 	mlx_hook(mlx.mlx_win, 17, 0, close_window, &mlx);
 	mlx_mouse_hook(mlx.mlx_win, zoom, &mlx);
 	mlx_loop(mlx.mlx_ptr);
 	mlx_destroy_image(mlx.mlx_ptr, mlx.img_ptr);
+	mlx_destroy_window(mlx.mlx_ptr, mlx.mlx_win);
+	mlx_destroy_display(mlx.mlx_ptr);
+	free(mlx.mlx_ptr);
 }

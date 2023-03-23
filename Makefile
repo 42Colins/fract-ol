@@ -6,7 +6,7 @@
 #    By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:36:52 by cprojean          #+#    #+#              #
-#    Updated: 2023/02/14 11:04:09 by cprojean         ###   ########.fr        #
+#    Updated: 2023/03/23 14:29:37 by cprojean         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME = fract_ol
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -g -Ofast
+CFLAGS = -Wall -Wextra -Werror -g -Ofast
 
 libftFLAGS = -L./libft -lft
 
@@ -32,7 +32,11 @@ rm = rm -rf
 HEADERS = fract_ol.h
 
 SRCS =	fract_ol.c	\
-		hooks.c
+		hooks.c		\
+		mandelbrot.c\
+		julia.c		\
+		b_ship.c	\
+		init.c
 
 OBJS = $(SRCS:.c=.o)
 

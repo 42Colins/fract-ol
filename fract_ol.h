@@ -6,7 +6,7 @@
 /*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:16:22 by cprojean          #+#    #+#             */
-/*   Updated: 2023/02/08 18:16:24 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/03/23 15:19:18 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FRACT_OL_H
 
 # ifdef __linux__
-#	include "minilibx/mlx.h"
+#	include"minilibx/mlx.h"
 #	define ESC			65307
 #	define Q			113
 #	define W			119
@@ -22,6 +22,7 @@
 #	define REd			116
 #	define IMu			105
 #	define IMd			111
+#	define C			99
 # elif __APPLE__
 #	include "../mlx/mlx.h"
 #	define ESC			53
@@ -33,6 +34,7 @@
 #	define IMd			111
 # endif
 
+# include "libft/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 
@@ -67,6 +69,7 @@ typedef struct s_info{
 	t_pos	mouse_pos;
 	t_pos	*mouse_ptr;
 	int		fract_type;
+	int		color;
 }	t_info;
 
 //
@@ -76,7 +79,16 @@ int		close_window(t_info *mlx);
 void	aff_fract(t_info mlx);
 t_pos	mouse_pos(int x, int y, t_info *mlx);
 int		julia_keys(int key, t_info *mlx);
-void	print_params();
+void	print_params(int argc, char **argv, t_info *mlx);
+void	check_choice(char *array, t_info *mlx);
+float	which_fractal(t_pos checking, t_info *mlx);
+float	mandelbrot(t_pos checking, t_info mlx);
+void	init_mandelbrot(t_info *mlx);
+float	julia(t_pos checking, t_info mlx);
+void	init_julia(t_info *mlx);
+float	b_ship(t_pos checking, t_info mlx);
+void	init_b_ship(t_info *mlx);
+void	insane_colors(t_info *mlx);
 
 
 #endif
