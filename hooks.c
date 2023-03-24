@@ -6,7 +6,7 @@
 /*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:10:39 by cprojean          #+#    #+#             */
-/*   Updated: 2023/03/23 15:17:59 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/03/24 10:25:20 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	zoom(int mousecode, int x, int y, t_info *info)
 	if (mousecode == 4)
 	{
 		info->zoom /= 1.1;
-		if (info->iter - 1 != 3)
+		if (info->iter > 15)
 			info->iter -= 1;
 		info->mouse_pos = mouse_pos(x, y, info);
 		aff_fract(*info);
@@ -29,7 +29,8 @@ int	zoom(int mousecode, int x, int y, t_info *info)
 	else if (mousecode == 5)
 	{
 		info->zoom *= 1.1;
-		info->iter += 1;
+		if (info->iter < 55)
+			info->iter += 1;
 		info->mouse_pos = mouse_pos(x, y, info);
 		aff_fract(*info);
 	}
@@ -38,13 +39,13 @@ int	zoom(int mousecode, int x, int y, t_info *info)
 
 int	julia_keys(int key, t_info *mlx)
 {
-	if (key == REu)
+	if (key == REU)
 		mlx->julia_r += 0.1;
-	if (key == REd)
+	if (key == RED)
 		mlx->julia_r -= 0.1;
-	if (key == IMu)
+	if (key == IMU)
 		mlx->julia_i += 0.1;
-	if (key == IMd)
+	if (key == IMD)
 		mlx->julia_i -= 0.1;
 	aff_fract(*mlx);
 	return (key);
@@ -81,8 +82,8 @@ int	key_test(int key, t_info *mlx)
 		close_window(mlx);
 		exit (0);
 	}
-	if (key == C)
-		insane_colors(mlx);
+	if (key == C || key == V)
+		insane_colors(mlx, key);
 	julia_keys(key, mlx);
 	return (key);
 }
@@ -100,4 +101,3 @@ t_pos	mouse_pos(int x, int y, t_info *mlx)
 	mlx->mouse_ptr = &pos;
 	return (pos);
 }
-

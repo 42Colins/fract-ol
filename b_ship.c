@@ -6,7 +6,7 @@
 /*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 13:19:04 by cprojean          #+#    #+#             */
-/*   Updated: 2023/03/23 15:03:28 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/03/24 10:38:11 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ void	init_b_ship(t_info *mlx)
 	mlx->mouse_pos.y = 0;
 	mlx->julia_r = 0.418000;
 	mlx->julia_i = -0.010000;
-	mlx->color = 0xC879FF;
+	mlx->color = 0xffff8848;
 	mlx->fract_type = 3;
 }

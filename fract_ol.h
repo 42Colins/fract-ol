@@ -6,7 +6,7 @@
 /*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:16:22 by cprojean          #+#    #+#             */
-/*   Updated: 2023/03/23 15:19:18 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/03/23 15:37:22 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,25 @@
 # define FRACT_OL_H
 
 # ifdef __linux__
-#	include"minilibx/mlx.h"
-#	define ESC			65307
-#	define Q			113
-#	define W			119
-#	define REu			114
-#	define REd			116
-#	define IMu			105
-#	define IMd			111
-#	define C			99
+#  include"minilibx/mlx.h"
+#  define ESC			65307
+#  define Q			113
+#  define W			119
+#  define REU			114
+#  define RED			116
+#  define IMU			105
+#  define IMD			111
+#  define C			99
+#  define V			118
 # elif __APPLE__
-#	include "../mlx/mlx.h"
-#	define ESC			53
-#	define Q			12
-#	define W			13
-#	define REu			15
-#	define REd			17
-#	define IMu			105
-#	define IMd			111
+#  include "../mlx/mlx.h"
+#  define ESC			53
+#  define Q			12
+#  define W			13
+#  define REU			15
+#  define RED			17
+#  define IMU			105
+#  define IMD			111
 # endif
 
 # include "libft/libft.h"
@@ -40,7 +41,6 @@
 
 # define WINWIDTH 1000
 # define WINHEIGTH 1000
-
 
 typedef struct s_pos{
 	double	x;
@@ -88,7 +88,6 @@ float	julia(t_pos checking, t_info mlx);
 void	init_julia(t_info *mlx);
 float	b_ship(t_pos checking, t_info mlx);
 void	init_b_ship(t_info *mlx);
-void	insane_colors(t_info *mlx);
-
+void	insane_colors(t_info *mlx, int key);
 
 #endif

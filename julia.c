@@ -6,7 +6,7 @@
 /*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 13:17:37 by cprojean          #+#    #+#             */
-/*   Updated: 2023/03/23 15:19:06 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/03/24 10:38:19 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,18 @@ void	init_julia(t_info *mlx)
 	mlx->mouse_ptr = &mlx->mouse_pos;
 	mlx->mouse_pos.x = 0;
 	mlx->mouse_pos.y = 0;
-	mlx->julia_r = 0.418000;
-	mlx->julia_i = -0.010000;
+	mlx->julia_i = 0.000000;
+	mlx->julia_r = -1.5000;
 	mlx->color = 0xFFD7D5;
 	mlx->fract_type = 2;
 }
 
-void	insane_colors(t_info *mlx)
+void	insane_colors(t_info *mlx, int key)
 {
-	mlx->color *= 1.2;
+	if (key == C)
+		mlx->color *= 1.2;
+	if (key == V)
+		mlx->color *= 0.8;
+	ft_printf("%p", mlx->color);
 	aff_fract(*mlx);
 }
