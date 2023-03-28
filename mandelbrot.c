@@ -6,7 +6,7 @@
 /*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 13:15:57 by cprojean          #+#    #+#             */
-/*   Updated: 2023/03/23 14:28:01 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:33:10 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,5 @@ void	init_mandelbrot(t_info *mlx)
 	mlx->julia_i = -0.010000;
 	mlx->color = 0xFFD7D5;
 	mlx->fract_type = 1;
+	mlx->motion = 15;
 }

@@ -6,7 +6,7 @@
 /*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:10:39 by cprojean          #+#    #+#             */
-/*   Updated: 2023/03/24 10:25:20 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:14:37 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	key_test(int key, t_info *mlx)
 {
 	if (key == Q)
 	{
-		if (mlx->iter - 1 != 3)
+		if (mlx->iter > 15)
 			mlx->iter -= 1;
 		mlx->reel_ptr = 0;
 		mlx->im_ptr = 0;
@@ -72,7 +72,8 @@ int	key_test(int key, t_info *mlx)
 	}
 	if (key == W)
 	{
-		mlx->iter += 1;
+		if (mlx->iter < 55)
+			mlx->iter += 1;
 		mlx->reel_ptr = 0;
 		mlx->im_ptr = 0;
 		aff_fract(*mlx);
@@ -84,7 +85,7 @@ int	key_test(int key, t_info *mlx)
 	}
 	if (key == C || key == V)
 		insane_colors(mlx, key);
-	julia_keys(key, mlx);
+	arrow_keys(mlx, key);
 	return (key);
 }
 

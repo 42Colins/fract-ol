@@ -6,7 +6,7 @@
 /*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:10:34 by cprojean          #+#    #+#             */
-/*   Updated: 2023/03/23 15:14:27 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:09:58 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,6 @@ t_pos	axis_converter(t_info mlx)
 	return (returned);
 }
 
-float	newton(t_pos checking, t_info mlx)
-{
-	double	runner;
-	double	zn;
-	double	x;
-	double	y;
-
-	x = checking.x;
-	y = checking.y;
-	runner = 0;
-	while (runner < mlx.iter)
-	{
-		zn = (x * x * x) - 3 * x * (y * y) + mlx.julia_r;
-		y = 3 * (x * x) * y - (y * y * y) - mlx.julia_i;
-		x = zn;
-		if (x * x + y * y > 4)
-			return (runner / mlx.iter);
-		runner++;
-	}
-	return (1);
-}
-
 void	aff_fract(t_info mlx)
 {
 	t_pos	checking;
@@ -68,7 +46,7 @@ void	aff_fract(t_info mlx)
 			checking = axis_converter(mlx);
 			checker = which_fractal(checking, &mlx);
 			my_mlx_pixel_put(&mlx, mlx.reel, mlx.imaginary, \
-				mlx.color * (checker / 10));
+				mlx.color * (checker / 5));
 			mlx.imaginary++;
 		}
 		mlx.reel++;

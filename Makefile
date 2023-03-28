@@ -6,7 +6,7 @@
 #    By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:36:52 by cprojean          #+#    #+#              #
-#    Updated: 2023/03/23 14:29:37 by cprojean         ###   ########.fr        #
+#    Updated: 2023/03/28 11:04:28 by cprojean         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRCS =	fract_ol.c	\
 		mandelbrot.c\
 		julia.c		\
 		b_ship.c	\
-		init.c
+		init.c		\
+		ft_atof.c
 
 OBJS = $(SRCS:.c=.o)
 
