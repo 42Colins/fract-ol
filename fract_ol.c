@@ -6,7 +6,7 @@
 /*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:10:34 by cprojean          #+#    #+#             */
-/*   Updated: 2023/03/28 13:09:58 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:23:38 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_pos	axis_converter(t_info mlx)
 {
 	t_pos	returned;
 
-	returned.x = (mlx.reel - WINWIDTH / 2.0) / \
+	returned.x = mlx.sign * (mlx.reel - WINWIDTH / 2.0) / \
 	(0.5 * mlx.zoom * WINWIDTH) + mlx.mouse_pos.x / (250);
 	returned.y = (mlx.imaginary - WINHEIGTH / 2.0) / \
 	(0.5 * mlx.zoom * WINHEIGTH) + mlx.mouse_pos.y / (250);

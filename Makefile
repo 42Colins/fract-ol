@@ -6,7 +6,7 @@
 #    By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 11:36:52 by cprojean          #+#    #+#              #
-#    Updated: 2023/03/28 11:04:28 by cprojean         ###   ########.fr        #
+#    Updated: 2023/03/29 10:46:50 by cprojean         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ ifeq ($(shell uname -s), Darwin)
 	MLXFLAGS =	-lmlx -framework OpenGL -framework AppKit
 endif
 
+
 NAME = fract_ol
 
 CC = cc
@@ -28,6 +29,8 @@ CFLAGS = -Wall -Wextra -Werror -g -Ofast
 libftFLAGS = -L./libft -lft
 
 rm = rm -rf
+
+LIB = libft/libft.a
 
 HEADERS = fract_ol.h
 
@@ -41,16 +44,19 @@ SRCS =	fract_ol.c	\
 
 OBJS = $(SRCS:.c=.o)
 
-%.o: %.c
+all	:	libft MLX $(NAME)
 
+%.o: %.c	$(LIB)
 	$(CC) $(libftFLAGS) -I/usr/include -Imlx_linux -O3 $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJS) $(libft) Makefile $(MLX) Makefile
-	$(MAKE) bonus -C libft
-	$(MAKE) all -C $(MLXDIR)
+$(NAME): $(OBJS) $(libft) $(MLX)
 	$(CC) $(OBJS) -L$(MLXDIR) $(MLXFLAGS) $(libftFLAGS) -o $(NAME)
 
-all	:		$(NAME)
+libft:
+		$(MAKE) -C libft
+
+MLX:
+		$(MAKE) -C $(MLXDIR)
 
 clean :
 			$(MAKE) clean -C libft
@@ -65,4 +71,4 @@ re :		fclean all
 
 .PHONY : libft all clean re fclean
 
-.SILENT :	$(OBJS) $(MLXc) $(NAME) libft
+# .SILENT :	$(OBJS) $(MLXc) $(NAME) libft

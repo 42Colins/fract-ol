@@ -6,7 +6,7 @@
 /*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:16:22 by cprojean          #+#    #+#             */
-/*   Updated: 2023/03/28 15:35:03 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:22:53 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_info{
 	t_pos	*mouse_ptr;
 	int		fract_type;
 	int		color;
+	int		sign;
 }	t_info;
 
 //

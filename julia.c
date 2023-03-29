@@ -6,7 +6,7 @@
 /*   By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 13:17:37 by cprojean          #+#    #+#             */
-/*   Updated: 2023/03/28 13:43:11 by cprojean         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:22:41 by cprojean         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,15 @@ void	init_julia(t_info *mlx)
 	mlx->julia_r = -0.8000;
 	mlx->color = 0xFFD7D5;
 	mlx->fract_type = 2;
+	mlx->sign = -1;
 }
 
 void	insane_colors(t_info *mlx, int key)
 {
 	if (key == C)
-		mlx->color *= 1.2;
+		mlx->color *= 1.05;
 	if (key == V)
-		mlx->color *= 0.8;
+		mlx->color *= 0.95;
 	aff_fract(*mlx);
 }
 

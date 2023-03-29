@@ -6,7 +6,7 @@
 #    By: cprojean <cprojean@42lyon.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/10 14:30:05 by cprojean          #+#    #+#              #
-#    Updated: 2023/02/13 18:48:31 by cprojean         ###   ########.fr        #
+#    Updated: 2023/03/28 17:48:34 by cprojean         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,4 +111,4 @@ re :				fclean all
 
 .PHONY :			all make clean fclean re bonus
 
-.SILENT : $(OBJS) $(OBJS_bonus) $(NAME) $(NAME_bonus)
+# .SILENT : $(OBJS) $(OBJS_bonus) $(NAME) $(NAME_bonus)
